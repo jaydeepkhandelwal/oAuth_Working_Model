@@ -78,9 +78,9 @@ public function createRequestToken($consumer_id,$token,$tokensecret,$callback){
 			$query = "select callback_url from token where id = $token_id ";
 			return $this -> runQuery($query);
 		}
-		public function ifUserExist($user_name)
+		public function ifUserExist($user_name,$password)
 		{
-			$query = "select id from user where login = '$user_name' ";
+			$query = "select id from user where name = '$user_name' and password = '$password' ";
 			return $this -> runQuery($query);
 		}
 		public function getVerifier($token_id){
@@ -109,6 +109,11 @@ public function createRequestToken($consumer_id,$token,$tokensecret,$callback){
 			$query = "select user_id from token where token = '$token' and type = 2 ";
 			return $this -> runQuery($query);
 		
+		}
+		public function getUserInfo($user_id)
+		{
+			$query = "select name,email from user where id = $user_id ";
+			return $this -> runQuery($query);
 		}
 		/* setters */
 		

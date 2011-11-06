@@ -18,8 +18,8 @@
 			$oauth_client->fetch($server_api_file_addr);
 			echo "<div class = 'main-div'>";
 			echo "<h3 class='header'> Client </h3>";
-			$user_name = $oauth_client -> getLastResponse();
-			echo "<div style='text-align:center;'> User Name : ".$user_name.
+			$user_info = $oauth_client -> getLastResponse();
+			echo "<div style='text-align:center;'> ".$user_info.
 "</div>";
 			echo "</div>";
 		} catch (OAuthException $E){

@@ -44,7 +44,7 @@ $form .= "<h3 class='header'> Client </h3>";
 	$message .= "<br/>";
 	$message .= "Now,Verfier Token is a proof of user logged in Server.Now,client needs to make a final request to get Access Token and Access secret";
 	$message .= "<br/>";
-	$message .= "And this request will be sent when this form will be submitted after getting filled up by correct request Token.";
+	$message .= "And this request will be sent when this form will be submitted after getting filled up by correct request Token Secret.";
 		$msg_html =  "<div class = 'hidden-text' style='display:none;' > <div id='eventHeader'><span onClick='closeBox();'></span>oAuth Workflow </div>";
 		$msg_html.= "<div class ='confirm_message'>$message</div>";
 		$msg_html.=  "<div id='eventFooter'>";

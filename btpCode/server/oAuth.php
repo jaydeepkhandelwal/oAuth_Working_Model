@@ -140,7 +140,8 @@
 		function getUserId($oAuthProvider)
 		{
 		global $consumerDB;
-		$user_id = $consumerDB -> getUserIdByToken($oAuthProvider -> token);	     if($user_id)
+		$user_id = $consumerDB -> getUserIdByToken($oAuthProvider -> token);	     
+		if($user_id)
 		{	
 			$row = mysql_fetch_array($user_id);
 			$user_id = $row['user_id'];
@@ -148,5 +149,14 @@
 		}	
 		
 		
+		}
+		function getUserInfo($user_id)
+		{
+			global $consumerDB;
+			$user_info = $consumerDB -> getUserInfo($user_id);
+			$row = mysql_fetch_array($user_info);
+			
+			return $row;
+
 		}
 

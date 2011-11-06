@@ -9,7 +9,11 @@
 	
 		checkRequest($oAuthProvider);
 		$user_id = getUserId($oAuthProvider);
-		echo $user_id;
+		$user_info = getUserInfo($user_id);
+	        $user_email = $user_info['email'];
+	        $user_name = $user_info['name'];
+			
+		echo "You are $user_name and Your Email id is $user_email ";
 //		echo "DS";
 	/*$provider = new Provider();
 

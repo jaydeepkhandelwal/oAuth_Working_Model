@@ -9,7 +9,6 @@
 <script type="text/javascript" src="js/page.js"/></script>
 <?
 	include("oAuth.php");
-	//require_once("../class/Provider.class1.php");
 	$oAuthProvider = new OAuthProvider();
 
 
@@ -21,7 +20,7 @@ if(isset($_REQUEST['oauth_token'])){
 	$row = mysql_fetch_array($result);
 	$token_id = $row['id'];
 	
-		if(!isset($_POST['login'])){
+		if(!isset($_POST['name'])){
 		include("popup.php");
 		?>
 			<div class = 'main-div'>
@@ -29,10 +28,10 @@ if(isset($_REQUEST['oauth_token'])){
 			<form method=post>
 				<ol>
 				<li>
-				<label for= 'login' >Name  </label><input type="text" id = 'login' name="login" class = 'text' /><br />
+				<label for= 'name' >Name  </label><input type="text" id = 'name' name="name" class = 'text' /><br />
 				</li>
 				<li>
-				<label for = 'password' >Password </label><input type="password" id = 'pass' name="pass" class = 'text' /><br />
+				<label for = 'password' >Password </label><input type="password" id = 'password' name="password" class = 'text' /><br />
 				</li>
 				<li>
 				<input type="submit" class='button' style = 'margin-top:50px;' value="I agree on granting permission to Client" />
@@ -56,7 +55,7 @@ if(isset($_REQUEST['oauth_token'])){
         	$msg_html .= "</div>";
 		echo $msg_html;
 		} else {
-			$user_id = $consumerDB -> ifUserExist($_POST['login']);			      
+			$user_id = $consumerDB -> ifUserExist($_POST['name'],$_POST['password']);			      
 			$row = mysql_fetch_array($user_id);
 			$user_id = $row['id'];
 			if($user_id){
@@ -68,12 +67,12 @@ if(isset($_REQUEST['oauth_token'])){
 				$callback = $row['callback_url'];
 				header("location: ".$callback."?&oauth_token=".$_REQUEST['oauth_token']."&oauth_verifier=".$oauth_verifier);
 			} else {
-				echo "User not found !";
+				echo "User Name or Password does not exist";
 			}
 		}
 	} else {
-		echo "The specified token does not exist";
+		echo "Token does not exist";
 	}
 } else {
-	echo "Please specify a oauth_token";
+	echo "Please send oAuth Token";
 }

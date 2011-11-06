@@ -1,3 +1,12 @@
+
+<html>
+<link href="css/main.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/form.css" rel="stylesheet" type="text/css" />
+<link href="css/button.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-min.js"/></script>
+<script type="text/javascript" src="js/pop.js"/></script>
+<script type="text/javascript" src="js/page.js"/></script>
 <?
 	include("oAuth.php");
 	//require_once("../class/Provider.class1.php");
@@ -13,14 +22,42 @@ if(isset($_REQUEST['oauth_token'])){
 	$token_id = $row['id'];
 	
 		if(!isset($_POST['login'])){
+		include("popup.php");
 		?>
+			<div class = 'main-div'>
+			<h3 class='header'> Server </h3>
 			<form method=post>
-				<label>Login : </label><input type="text" name="login" /><br />
-				<input type="submit" value="Authenticate to this website" />
+				<ol>
+				<li>
+				<label for= 'login' >Name  </label><input type="text" id = 'login' name="login" class = 'text' /><br />
+				</li>
+				<li>
+				<label for = 'password' >Password </label><input type="password" id = 'pass' name="pass" class = 'text' /><br />
+				</li>
+				<li>
+				<input type="submit" class='button' style = 'margin-top:50px;' value="I agree on granting permission to Client" />
+				</li>
+				</ol>
 			</form>
-		<? 
+		 <div href='#' class='small-text'> What's happening?</div>
+			</div>
+		<?
+		$message = "Server indentifies Client by checking Request token that is sent as Url query String." ;
+		$message .= "<br/>";
+		$message .= "Now server is asking user to login so that it can grant access to Client.";
+		$message .= "<br/>";
+		$message .= "If User successfully logs in then server will generate a Token Verifier and will send it to Client callback url.";
+		$msg_html =  "<div class = 'hidden-text' style='display:none;' > <div id='eventHeader'><span onClick='closeBox();'></span>Oauth WorkFlow </div>";
+		$msg_html.= "<div class ='confirm_message'>$message</div>";
+		$msg_html.=  "<div id='eventFooter'>";
+	        $msg_html .= '<input type="button" value="Okay" id = "confirm_submit" onClick=""/>';
+	        $msg_html .= '<div class="clr"></div>';
+        	$msg_html .= "</div>";
+        	$msg_html .= "</div>";
+		echo $msg_html;
 		} else {
-			$user_id = $consumerDB -> ifUserExist($_POST['login']);			      $row = mysql_fetch_array($user_id);
+			$user_id = $consumerDB -> ifUserExist($_POST['login']);			      
+			$row = mysql_fetch_array($user_id);
 			$user_id = $row['id'];
 			if($user_id){
 				$oauth_verifier = generateVerifier($oAuthProvider);
